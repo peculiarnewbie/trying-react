@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 //config
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from '../configIGDB';
 //Components
 import HeroImage from './HeroImage';
-import Grid from './Grid'
-import Thumb from './Thumb'
+import Grid from './Grid';
+import Thumb from './Thumb';
+import Spinner from './Spinner';
+import SearchBar from './SearchBar';
 
 //Hook
-import { useHomeGameFetch } from '../hooks/useHomeGameFetch'
+import { useHomeGameFetch } from '../hooks/useHomeGameFetch';
 //Image
 import NoImage from '../images/no_image.jpg';
 
 function HomeGame(){
-    const { state, loading, error } = useHomeGameFetch();
+    const { state, loading, error, setSearchTerm } = useHomeGameFetch();
 
     console.log(state);
 
@@ -26,6 +28,7 @@ function HomeGame(){
                 />
             ) : null
             }
+            <SearchBar setSearchTerm={setSearchTerm} />
             <Grid header='Highest Rated 2021 Games'>
                 {state.results.map(game => (
                     <Thumb
@@ -42,6 +45,7 @@ function HomeGame(){
                 ))}
 
             </Grid>
+            <Spinner />
         </>
     );
 }

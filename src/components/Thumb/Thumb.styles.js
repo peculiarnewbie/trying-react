@@ -3,10 +3,11 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
     //background: var(--darkGrey);    
     padding: 10px 0px;
+    overflow: hidden;
+    max-height: 100%;
 `;
 
 export const Content = styled.div`
-    height: 100%;
     //background: var(--medGrey); 
     display: flex;
     align-items: center;
@@ -43,4 +44,8 @@ export const Text = styled.div`
     top:0px;
     color: var(--black);
     margin: 0 10px;
+`;
+
+export const Gap = styled.div`
+    height:10px;
 `;

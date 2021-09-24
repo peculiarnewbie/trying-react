@@ -1,5 +1,6 @@
 import { any } from 'prop-types';
 import { useState , useEffect, useRef } from 'react';
+import { isCompositeComponent } from 'react-dom/test-utils';
 // API
 import API from '../APIIGDB';
 
@@ -14,6 +15,7 @@ const initialState = {
 };
 
 export const useHomeGameFetch = () => {
+    const [searchTerm, setSearchTerm] = useState('');
     const [state, setState] = useState(initialState);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -59,5 +61,5 @@ export const useHomeGameFetch = () => {
         fetchGames(1);
     }, []);
 
-    return { state, loading, error };
+    return { state, loading, error, setSearchTerm };
 };

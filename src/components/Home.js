@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 //config
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from '../config';
 //Components
 import HeroImage from './HeroImage';
-import Grid from './Grid'
-import Thumb from './Thumb'
+import Grid from './Grid';
+import Thumb from './Thumb';
+import Spinner from './Spinner';
+import SearchBar from './SearchBar';
 
 //Hook
-import { useHomeFetch } from '../hooks/useHomeFetch'
+import { useHomeFetch } from '../hooks/useHomeFetch';
 //Image
 import NoImage from '../images/no_image.jpg';
 
@@ -26,6 +28,7 @@ function Home(){
                 />
             ) : null
             }
+            <SearchBar />
             <Grid header='Popular Movies'>
                 {state.results.map(movie => (
                     <Thumb
@@ -42,6 +45,7 @@ function Home(){
                 ))}
 
             </Grid>
+            <Spinner />
         </>
     );
 }

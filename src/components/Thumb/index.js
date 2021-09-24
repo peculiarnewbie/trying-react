@@ -1,6 +1,6 @@
 import React from 'react';
 // Styles
-import { Wrapper, Content, Image, Text } from './Thumb.styles';
+import { Wrapper, Content, Image, Text, Gap } from './Thumb.styles';
 
 const Thumb = ({ image, title, movieId, clickable }) => (
     <Wrapper>
