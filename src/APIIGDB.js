@@ -20,7 +20,7 @@ const apiSettings = {
   fetchGames: async(searchTerm) => {
     const raw = searchTerm
     ? `search ${searchTerm}; fields name, cover.image_id;`
-    : `fields name, summary, cover.image_id, artworks.image_id, screenshots.image_id; sort rating desc; where first_release_date > 1609434000 & rating > 75 & rating_count > 10; limit 20;`
+    : `fields name, summary, cover.image_id, artworks.image_id, screenshots.image_id; sort rating desc; where first_release_date > 1609434000 & rating > 75 & rating_count > 7; limit 25;`
     requestOptions.body = raw
     return await (await fetch(API_URL, requestOptions)).json();
   },

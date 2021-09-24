@@ -1,7 +1,7 @@
 // Configuration for TMDB API
 // Read more about the API here: https://developers.themoviedb.org/
 
-const API_URL = "https://api.igdb.com/v4/games/";
+const API_URL = "https://fierce-ocean-46816.herokuapp.com/https://api.igdb.com/v4/games/";
 const CLIENT_ID = process.env.REACT_APP_IGDB_CLIENT_ID;
 const ACCESS_TOKEN = process.env.REACT_APP_IGDB_ACCESS_TOKEN;
 
