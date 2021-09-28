@@ -28,13 +28,8 @@ export const useHomeGameFetch = () => {
             setLoading(true);
 
             const games = await API.fetchGames(searchTerm);
-            
-            console.log(games[0].id);
 
             const game = await API.fetchFirstGame(games[0].id);
-
-            console.log("howw");
-            console.log(games);
 
             setState(prev => ({
                 ...games, 
