@@ -7,6 +7,7 @@ import Grid from './Grid';
 import Thumb from './Thumb';
 import Spinner from './Spinner';
 import SearchBar from './SearchBar';
+import Button from './Button';
 
 //Hook
 import { useHomeGameFetch } from '../hooks/useHomeGameFetch';
@@ -14,28 +15,34 @@ import { useHomeGameFetch } from '../hooks/useHomeGameFetch';
 import NoImage from '../images/no_image.jpg';
 
 function HomeGame(){
-    const { state, loading, error, setSearchTerm } = useHomeGameFetch();
+    const { state, loading, error, searchTerm, setSearchTerm } = useHomeGameFetch();
 
     console.log(state);
 
     return(
         <>
-            {state.results[0] ? (
+            {state.firstGame[0] ? (
                 <HeroImage 
-                    image = {`${IMAGE_BASE_URL}${state.results[0].screenshots[0].image_id}.jpg`}
-                    title={state.results[0].name}
-                    text={state.results[0].summary}
+                    isSearch = {searchTerm ? true : false}
+                    image={ state.firstGame[0].artworks
+                            ? IMAGE_BASE_URL + state.firstGame[0].artworks[0].image_id + ".jpg"
+                            : state.firstGame[0].screenshots
+                                ? IMAGE_BASE_URL + state.firstGame[0].screenshots[0].image_id + ".jpg"
+                                : NoImage
+                    }
+                    title={state.firstGame[0].name}
+                    text={state.firstGame[0].summary}
                 />
             ) : null
             }
             <SearchBar setSearchTerm={setSearchTerm} />
-            <Grid header='Highest Rated 2021 Games'>
+            <Grid header={searchTerm ? 'Search Result' : 'Highest Rated 2021 Games'}>
                 {state.results.map(game => (
                     <Thumb
                         key={game.id}
                         clickable
                         image={
-                            game.cover.image_id
+                            game.cover
                                 ? IMAGE_BASE_URL  + game.cover.image_id + ".jpg"
                                 : NoImage
                         }
@@ -45,7 +52,10 @@ function HomeGame(){
                 ))}
 
             </Grid>
-            <Spinner />
+            {loading && <Spinner />}
+            {state.page < state.total_pages && !loading && (
+                <Button text='Load More' />
+            )}
         </>
     );
 }

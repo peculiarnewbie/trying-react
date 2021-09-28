@@ -7,6 +7,8 @@ import API from '../APIIGDB';
 const initialState = {
     page: 0,
     results: [],
+    firstGame: [],
+    firstGameId: 0,
     firstGameName: "",
     firstGameSummary: "",
     heroImage: "",
@@ -26,40 +28,32 @@ export const useHomeGameFetch = () => {
             setLoading(true);
 
             const games = await API.fetchGames(searchTerm);
+            
+            console.log(games[0].id);
+
+            const game = await API.fetchFirstGame(games[0].id);
+
+            console.log("howw");
+            console.log(games);
 
             setState(prev => ({
                 ...games, 
                 results:
-                    page > 1 ? [...prev.results, ...games] : [...games]
+                    page > 1 ? [...prev.results, ...games] : [...games],
+                firstGame: [...game]
             }));
+
         } catch (error) {
             setError(true);
         }
         setLoading(false);
     }
 
-    const fetchFirstGame = async (gameId) => {
-        try{
-            setError(false);
-            
-            const game = await API.fetchFirstGame(gameId);
-
-            setState(prev => ({
-                ...game,
-                firstGameName: game.name,
-                firstGameSummary: game.summary,
-                heroImage:
-                    game.artworks[0].image_id ? game.artworks[0].image_id : game.screenshots[0].image_id
-            }));
-        } catch (error){
-            setError(true);
-        }
-    }
-
-    // Initial render
+    // Initial and search
     useEffect(() => {
-        fetchGames(1);
-    }, []);
+        setState(initialState);
+        fetchGames(1, searchTerm);
+    }, [searchTerm]);
 
-    return { state, loading, error, setSearchTerm };
+    return { state, loading, error, searchTerm, setSearchTerm };
 };

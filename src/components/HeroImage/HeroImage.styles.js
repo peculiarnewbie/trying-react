@@ -21,6 +21,10 @@ export const Wrapper = styled.div`
             opacity: 1;
         }
     }
+
+    ${({ isSearch }) => isSearch && `
+    height: 300px
+  `}
 `;
 
 export const Content = styled.div`
